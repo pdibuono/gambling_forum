@@ -1,0 +1,1 @@
+web: gunicorn gambling_forum.wsgi --log-file -
