@@ -27,7 +27,7 @@ SECRET_KEY = '0on(v@&8wnb2eml_+r8(8+*lyk%ft9x^&$t$0!9$-5@@auv(a_'
 # SECURITY WARNING: don't run with debug turned on in production!
 if ON_HEROKU == True:
   DEBUG = False
-else: 
+else:
   DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'registration',
+    'django.contrib.sites',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -114,3 +116,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(MAIN_DIR, 'static'),)
 STATIC_ROOT = 'staticfiles'
+LOGIN_URL = '/user/login'
+LOGIN_REDIRECT_URL ='/'
+SITE_ID = 1
