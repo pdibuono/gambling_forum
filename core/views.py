@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
 
@@ -30,3 +30,8 @@ class PickUpdateView(UpdateView):
     model = Pick
     template_name = 'pick/pick_form.html'
     fields = ['sport', 'description']
+    
+class PickDeleteView(DeleteView):
+    model = Pick 
+    template_name = 'pick/pick_confirm_delete.html'
+    success_url = reverse_lazy('pick_list')
