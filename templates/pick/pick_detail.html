@@ -7,5 +7,14 @@
 <p><a href="{% url 'pick_update' pk=pick.id %}">Edit Pick</a></p>
 <p><a href="{% url 'pick_delete' pk=pick.id %}">Delete Pick</a></p>
 {% endif %}
+{% if replies.count > 0 %}
+<h3>{{ replies.count }} Reply{{ replies.count|pluralize }}:</h3>
+{% endif %}
+{% for reply in replies %}
+<div class="panel">
+  <p>{{ reply.text }}</p>
+  <p> Answered by {{ reply.user.username }} on {{ reply.created_at }}</p>
+</div>
+{% endfor %}
 <p><a href="{% url 'reply_create' pk=pick.id %}">Send Reply</a></p>
 {% endblock %}

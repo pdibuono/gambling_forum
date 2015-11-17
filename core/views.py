@@ -25,6 +25,13 @@ class PickListView(ListView):
 class PickDetailView(DetailView):
     model = Pick
     template_name = 'pick/pick_detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(PickDetailView, self).get_context_data(**kwargs)
+        pick = Pick.objects.get(id=self.kwargs['pk'])
+        replies = Reply.objects.filter(pick=pick)
+        context['replies'] = replies
+        return context
 
 class PickUpdateView(UpdateView):
     model = Pick
