@@ -27,7 +27,8 @@ class Reply(models.Model):
 
 class Vote(models.Model):
     user = models.ForeignKey(User)
-    pick = models.ForeignKey(Pick)
+    pick = models.ForeignKey(Pick, blank=True, null=True)
+    reply = models.ForeignKey(Reply, blank=True, null=True)
     
     def __unicode__(self):
         return "%s upvoted" % (self.user.username)
