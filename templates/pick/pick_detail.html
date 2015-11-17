@@ -20,5 +20,7 @@
   <p> Answered by {{ reply.user.username }} on {{ reply.created_at }}</p>
 </div>
 {% endfor %}
+{% if not user_replies %}
 <p><a href="{% url 'reply_create' pk=pick.id %}">Send Reply</a></p>
+{% endif %}
 {% endblock %}

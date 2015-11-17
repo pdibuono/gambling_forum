@@ -32,13 +32,15 @@ class PickDetailView(DetailView):
         pick = Pick.objects.get(id=self.kwargs['pk'])
         replies = Reply.objects.filter(pick=pick)
         context['replies'] = replies
+        user_replies = Reply.objects.filter(pick=pick, user=self.request.user)
+        context['user_replies'] = user_replies
         return context
 
 class PickUpdateView(UpdateView):
     model = Pick
     template_name = 'pick/pick_form.html'
     fields = ['sport', 'description']
-    
+
     def get_object(self, *args, **kwargs):
         object = super(PickUpdateView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
@@ -49,7 +51,7 @@ class PickDeleteView(DeleteView):
     model = Pick
     template_name = 'pick/pick_confirm_delete.html'
     success_url = reverse_lazy('pick_list')
-    
+
     def get_object(self, *args, **kwargs):
         object = super(PickDeleteView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
@@ -65,6 +67,9 @@ class ReplyCreateView(CreateView):
        return self.object.pick.get_absolute_url()
 
     def form_valid(self, form):
+        pick = Pick.objects.get(id=self.kwargs['pk'])
+        if Reply.objects.filter(pick=pick, user=self.request.user).exists():
+          raise PermissionDenied
         form.instance.user = self.request.user
         form.instance.pick = Pick.objects.get(id=self.kwargs['pk'])
         return super(ReplyCreateView, self).form_valid(form)
@@ -91,7 +96,7 @@ class ReplyDeleteView(DeleteView):
 
     def get_success_url(self):
         return self.object.pick.get_absolute_url()
-      
+
     def get_object(self, *args, **kwargs):
         object = super(ReplyDeleteView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
