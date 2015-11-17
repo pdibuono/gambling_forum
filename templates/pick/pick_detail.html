@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ pick.sport }}</h1>
 <p>{{ pick.description }}</p>
-  <p>Posted by {{ pick.user.username }} on {{ pick.created_at }}</p>
+  <p>Posted by <a href="{% url 'user_detail' slug=pick.user.username %}">{{ pick.user.username }}</a> on {{ pick.created_at }}</p>
 {% if pick.user == user %}
 <p><a href="{% url 'pick_update' pk=pick.id %}">Edit Pick</a></p>
 <p><a href="{% url 'pick_delete' pk=pick.id %}">Delete Pick</a></p>
@@ -17,8 +17,7 @@
   <p><a href="{% url 'reply_update' pick_pk=pick.id reply_pk=reply.id %}">Edit Reply</a></p>
   <p><a href="{% url 'reply_delete' pick_pk=pick.id reply_pk=reply.id %}">Delete Reply</a></p>
 {% endif %}
-  <p> Answered by {{ reply.user.username }} on {{ reply.created_at }}</p>
-  <p>{{ reply.vote_set.all.count }} Vote{{ reply.vote_set.all.count|pluralize }}</p>
+  <p>Posted by <a href="{% url 'user_detail' slug=reply.user.username %}">{{ reply.user.username }}</a> on {{ reply.created_at }} ({{ reply.vote_set.all.count }} Vote{{ reply.vote_set.all.count|pluralize }})</p>
 <form method="post" action="{% url 'vote' %}">
   {% csrf_token %}
   <input type="hidden" name="reply" value="{{ reply.id }}" />
