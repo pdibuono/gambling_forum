@@ -7,4 +7,5 @@
 <p><a href="{% url 'pick_update' pk=pick.id %}">Edit Pick</a></p>
 <p><a href="{% url 'pick_delete' pk=pick.id %}">Delete Pick</a></p>
 {% endif %}
+<p><a href="{% url 'reply_create' pk=pick.id %}">Send Reply</a></p>
 {% endblock %}
