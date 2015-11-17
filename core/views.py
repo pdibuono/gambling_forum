@@ -23,6 +23,7 @@ class PickCreateView(CreateView):
 class PickListView(ListView):
   model = Pick
   template_name = "pick/pick_list.html"
+  paginate_by = 5
 
 class PickDetailView(DetailView):
   model = Pick
