@@ -8,4 +8,5 @@ urlpatterns = patterns('',
      url(r'^pick/create/$', PickCreateView.as_view(), name='pick_create'),
      url(r'pick/$', PickListView.as_view(), name='pick_list'),
      url(r'pick/(?P<pk>\d+)/$', PickDetailView.as_view(), name='pick_detail'),
+     url(r'^pick/update/(?P<pk>\d+)/$', PickUpdateView.as_view(), name='pick_update'),
 )

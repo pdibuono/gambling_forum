@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
 
@@ -25,3 +25,8 @@ class PickListView(ListView):
 class PickDetailView(DetailView):
     model = Pick
     template_name = 'pick/pick_detail.html'
+    
+class PickUpdateView(UpdateView):
+    model = Pick
+    template_name = 'pick/pick_form.html'
+    fields = ['sport', 'description']
