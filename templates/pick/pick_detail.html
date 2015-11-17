@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ pick.sport }}</h1>
+<p>{{ pick.description }}</p>
+  <p>Asked by {{ pick.user.username }} on {{ pick.created_at }}</p>
+{% endblock %}

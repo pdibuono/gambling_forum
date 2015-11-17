@@ -2,7 +2,7 @@
 {% block content %}
 {% for pick in object_list %}
 <div class="panel">
-  <h3>{{ pick.sport }}</h3>
+  <h3><a href="{{ pick.get_absolute_url }}">{{ pick.sport }}</a></h3>
   <p>Asked by {{ pick.user.username }} on {{ pick.created_at }}</p>
 </div>
 {% endfor %}
