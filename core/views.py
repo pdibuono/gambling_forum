@@ -25,7 +25,7 @@ class PickListView(ListView):
 class PickDetailView(DetailView):
     model = Pick
     template_name = 'pick/pick_detail.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super(PickDetailView, self).get_context_data(**kwargs)
         pick = Pick.objects.get(id=self.kwargs['pk'])
@@ -55,12 +55,20 @@ class ReplyCreateView(CreateView):
         form.instance.user = self.request.user
         form.instance.pick = Pick.objects.get(id=self.kwargs['pk'])
         return super(ReplyCreateView, self).form_valid(form)
-      
+
 class ReplyUpdateView(UpdateView):
     model = Reply
     pk_url_kwarg = 'reply_pk'
     template_name = 'reply/reply_form.html'
     fields = ['text']
-    
+
+    def get_success_url(self):
+        return self.object.pick.get_absolute_url()
+
+class ReplyDeleteView(DeleteView):
+    model = Reply
+    pk_url_kwarg = 'reply_pk'
+    template_name = 'reply/reply_confirm_delete.html'
+
     def get_success_url(self):
         return self.object.pick.get_absolute_url()

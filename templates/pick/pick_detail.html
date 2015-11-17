@@ -15,6 +15,7 @@
   <p>{{ reply.text }}</p>
   {% if reply.user == user %}
   <p><a href="{% url 'reply_update' pick_pk=pick.id reply_pk=reply.id %}">Edit Reply</a></p>
+  <p><a href="{% url 'reply_delete' pick_pk=pick.id reply_pk=reply.id %}">Delete Reply</a></p>
 {% endif %}
   <p> Answered by {{ reply.user.username }} on {{ reply.created_at }}</p>
 </div>
