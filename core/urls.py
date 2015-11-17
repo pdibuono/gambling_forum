@@ -14,4 +14,5 @@ urlpatterns = patterns('',
      url(r'^pick/(?P<pk>\d+)/reply/create/$', login_required(ReplyCreateView.as_view()), name='reply_create'),
      url(r'^pick/(?P<pick_pk>\d+)/reply/update/(?P<reply_pk>\d+)/$', login_required(ReplyUpdateView.as_view()), name='reply_update'),
      url(r'^pick/(?P<pick_pk>\d+)/reply/delete/(?P<reply_pk>\d+)/$', login_required(ReplyDeleteView.as_view()), name='reply_delete'),
+    url(r'^vote/$', login_required(VoteFormView.as_view()), name='vote'),
 )
