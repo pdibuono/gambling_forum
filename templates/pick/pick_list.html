@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for pick in object_list %}
+<div class="panel">
+  <h3>{{ pick.sport }}</h3>
+  <p>Asked by {{ pick.user.username }} on {{ pick.created_at }}</p>
+</div>
+{% endfor %}
+{% endblock %}
