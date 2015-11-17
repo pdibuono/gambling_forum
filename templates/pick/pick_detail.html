@@ -13,6 +13,9 @@
 {% for reply in replies %}
 <div class="panel">
   <p>{{ reply.text }}</p>
+  {% if reply.user == user %}
+  <p><a href="{% url 'reply_update' pick_pk=pick.id reply_pk=reply.id %}">Edit Reply</a></p>
+{% endif %}
   <p> Answered by {{ reply.user.username }} on {{ reply.created_at }}</p>
 </div>
 {% endfor %}
