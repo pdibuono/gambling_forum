@@ -13,7 +13,7 @@ class Home(TemplateView):
 class PickCreateView(CreateView):
   model = Pick
   template_name = "pick/pick_form.html"
-  fields = ['sport', 'description']
+  fields = ['sport', 'description', 'visibility']
   success_url = reverse_lazy('pick_list')
 
   def form_valid(self, form):
@@ -63,7 +63,7 @@ class PickDeleteView(DeleteView):
 class ReplyCreateView(CreateView):
   model = Reply
   template_name = "reply/reply_form.html"
-  fields = ['text']
+  fields = ['text', 'visibility']
 
   def get_success_url(self):
       return self.object.pick.get_absolute_url()
@@ -138,9 +138,9 @@ class UserDetailView(DetailView):
   def get_context_data(self, **kwargs):
       context = super(UserDetailView, self).get_context_data(**kwargs)
       user_in_view = User.objects.get(username=self.kwargs['slug'])
-      picks = Pick.objects.filter(user=user_in_view)
+      picks = Pick.objects.filter(user=user_in_view).exclude(visibility=1)
       context['picks'] = picks
-      replies = Reply.objects.filter(user=user_in_view)
+      replies = Reply.objects.filter(user=user_in_view).exclude(visibility=1)
       context['replies'] = replies
       return context
 
