@@ -3,13 +3,22 @@
 {% for pick in object_list %}
 <div class="panel">
   <h3><a href="{{ pick.get_absolute_url }}">{{ pick.sport }}</a></h3>
-  <p>Posted {% if pick.visibility == 0 %} by <a href="{% url 'user_detail' slug=pick.user.username %}">{{ pick.user.username }}</a> {% endif %} on {{ pick.created_at }}</p>
-  <p>{{ pick.vote_set.all.count }} Vote{{ pick.vote_set.all.count|pluralize }}</p>
-<form method="post" action="{% url 'vote' %}">
-  {% csrf_token %}
-  <input type="hidden" name="pick" value="{{ pick.id }}" />
-  <input type="hidden" name="user" value="{{ pick.id }}" />
-  <button>+</button>
+  <p>Posted {% if reply.visibility == 0 %} by <a href="{% url 'user_detail' slug=pick.user.username %}">{{ pick.user.username }}</a> {% endif %} on {{ pick.created_at }}</p>
+  <form method="post" action="{% url 'vote' %}">
+    <span class="badge">{{ pick.reply_set.all.count }} Reply{{  pick.answer_set.all.count|pluralize }}</span>
+    <span class="badge">{{ pick.vote_set.all.count }} Vote{{ pick.vote_set.all.count|pluralize }}</span>
+    {% csrf_token %}
+    <input type="hidden" name="pick" value="{{ pick.id }}" />
+    <input type="hidden" name="user" value="{{ user.id }}" />
+    {% if pick in user_votes %}
+    <button class="btn btn-link">
+      <span class="glyphicon glyphicon-thumbs-down"></span>
+    </button>
+    {% else %}
+    <button class="btn btn-link">
+      <span class="glyphicon glyphicon-thumbs-up"></span>
+    </button>
+    {% endif %}
   </form>
 </div>
 {% empty %}

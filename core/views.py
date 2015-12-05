@@ -24,7 +24,13 @@ class PickListView(ListView):
   model = Pick
   template_name = "pick/pick_list.html"
   paginate_by = 5
-
+  
+  def get_context_data(self, **kwargs):
+    context = super(PickListView, self).get_context_data(**kwargs)
+    user_votes = Pick.objects.filter(vote__user=self.request.user)
+    context['user_votes'] = user_votes
+    return context
+  
 class PickDetailView(DetailView):
   model = Pick
   template_name = 'pick/pick_detail.html'
@@ -36,6 +42,8 @@ class PickDetailView(DetailView):
       context['replies'] = replies
       user_replies = Reply.objects.filter(pick=pick, user=self.request.user)
       context['user_replies'] = user_replies
+      user_votes = Reply.objects.filter(vote__user=self.request.user)
+      context['user_votes'] = user_votes
       return context
 
 class PickUpdateView(UpdateView):
